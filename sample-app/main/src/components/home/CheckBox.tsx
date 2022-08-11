@@ -4,7 +4,7 @@ export type Props = {
   pref: string;
 };
 
-const CommonCheckBox: any = (props: any) => {
+const CheckBox: any = (props: any) => {
   const { prefectures, onChange } = props;
   return (
     prefectures.length > 0 &&
@@ -26,4 +26,4 @@ const CommonCheckBox: any = (props: any) => {
     })
   );
 };
-export default CommonCheckBox;
+export default CheckBox;

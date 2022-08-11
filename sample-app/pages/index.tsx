@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import HtmlHead from "../main/src/components/common/HtmlHead";
 import Typography from "../main/src/components/common/Typography";
-import CommonCheckBox from "../main/src/components/home/CommonCheckBox";
+import CommonCheckBox from "../main/src/components/home/CheckBox";
 import Graph from "../main/src/components/home/Graph";
 import prefecturesAPI from "../main/src/api/prefecturesAPI";
 import populationAPI from "../main/src/api/populationAPI";
@@ -11,7 +11,6 @@ import Header from "../main/src/components/common/Typography";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import htmlHead from "../main/src/components/common/HtmlHead";
 import { useState, useEffect } from "react";
 import { Chart, registerables } from "chart.js";
 
@@ -35,7 +34,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const prefectures = await prefecturesAPI();
+      const prefectures: any = await prefecturesAPI();
       const populationComposition: any = await Promise.all(
         prefectures.map(async (prefectures: any) => {
           const result = await populationAPI(prefectures.prefCode);

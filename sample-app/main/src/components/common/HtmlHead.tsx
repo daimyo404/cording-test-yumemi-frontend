@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { VoidFunctionComponent } from "react";
 
 const HtmlHead: React.FC = () => {
   return (
