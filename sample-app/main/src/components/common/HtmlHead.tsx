@@ -1,6 +1,7 @@
 import Head from "next/head";
+import { VoidFunctionComponent } from "react";
 
-const HtmlHead = () => {
+const HtmlHead: React.FC = () => {
   return (
     <>
       <Head>
