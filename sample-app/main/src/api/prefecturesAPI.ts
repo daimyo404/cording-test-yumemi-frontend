@@ -11,7 +11,7 @@ type ApiResponse = {
   result: Prefectures[],
 }
 
-const prefecturesAPI = async () => {
+const prefecturesApi = async () => {
 
   const options: AxiosRequestConfig = {
     url: url.prefectures,
@@ -30,4 +30,4 @@ const prefecturesAPI = async () => {
   return result;
 };
 
-export default prefecturesAPI;
+export default prefecturesApi;

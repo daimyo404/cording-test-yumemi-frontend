@@ -1,28 +1,19 @@
 import type { NextPage } from "next";
 import HtmlHead from "../main/src/components/common/HtmlHead";
 import Typography from "../main/src/components/common/Typography";
-import CommonCheckBox from "../main/src/components/home/CheckBox";
+import CheckBox from "../main/src/components/home/CheckBox";
 import Graph from "../main/src/components/home/Graph";
-import prefecturesAPI from "../main/src/api/prefecturesAPI";
-import populationAPI from "../main/src/api/populationAPI";
+import prefecturesApi from "../main/src/api/prefecturesAPI";
+import populationApi from "../main/src/api/populationAPI";
 import { ChakraProvider } from "@chakra-ui/react";
-import styled from "styled-components";
-import Header from "../main/src/components/common/Typography";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { useState, useEffect } from "react";
-import { Chart, registerables } from "chart.js";
 
 const Home: NextPage = () => {
   const [prefectures, setPrefectures] = useState([]);
   const [population, setPopulation] = useState([]);
   const [populationDrawing, setPopulationDrawing] = useState([]);
 
-  const onChange = (prefCode: any, prefName: any, checked: any) => {
-    // const hoge: any = { population: population[prefCode], prefName: prefName };
-
-    //
+  const onChange = (prefCode: number, prefName: string, checked: boolean) => {
     checked
       ? setPopulationDrawing([...populationDrawing, population[prefCode - 1]])
       : setPopulationDrawing(
@@ -34,10 +25,10 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const prefectures: any = await prefecturesAPI();
+      const prefectures: any = await prefecturesApi();
       const populationComposition: any = await Promise.all(
         prefectures.map(async (prefectures: any) => {
-          const result = await populationAPI(prefectures.prefCode);
+          const result = await populationApi(prefectures.prefCode);
           const population = Object.assign(result, {
             prefCode: prefectures.prefCode,
             prefName: prefectures.prefName,
@@ -48,7 +39,6 @@ const Home: NextPage = () => {
 
       setPrefectures(prefectures);
       setPopulation(populationComposition);
-      // setPopulation(populationComposition);
     };
     fetch();
   }, []);
@@ -58,7 +48,7 @@ const Home: NextPage = () => {
       <ChakraProvider>
         <HtmlHead></HtmlHead>
         <Typography
-          message={"Title"}
+          message={"都道府県別人口グラフ"}
           fontSize={"3vw"}
           textAlign={"center"}
         ></Typography>
@@ -67,12 +57,12 @@ const Home: NextPage = () => {
           fontSize={"1vw"}
           textAlign={"left"}
         ></Typography>
-        <CommonCheckBox
+        <CheckBox
           prefectures={prefectures}
           onChange={(prefCode: any, prefName: any, checked: any) => {
             onChange(prefCode, prefName, checked);
           }}
-        ></CommonCheckBox>
+        ></CheckBox>
         <Graph populationDrawing={populationDrawing}></Graph>
       </ChakraProvider>
     </>

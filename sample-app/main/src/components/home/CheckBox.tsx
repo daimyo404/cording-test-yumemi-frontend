@@ -1,14 +1,26 @@
 import { Checkbox } from "@chakra-ui/react";
 
-export type Props = {
-  pref: string;
+type Prefectures = {
+  prefCode: number;
+  prefName: string;
 };
 
-const CheckBox: any = (props: any) => {
+type CheckBoxOnChange = (
+  prefCode: number,
+  prefName: string,
+  checked: boolean
+) => void;
+
+type Props = {
+  prefectures: Prefectures[];
+  onChange: CheckBoxOnChange;
+};
+
+const CheckBox: React.FC<Props> = (props) => {
   const { prefectures, onChange } = props;
   return (
     prefectures.length > 0 &&
-    prefectures.map((prefectures: any) => {
+    prefectures.map((prefectures: Prefectures) => {
       return (
         <Checkbox
           key={prefectures.prefCode}
@@ -26,4 +38,5 @@ const CheckBox: any = (props: any) => {
     })
   );
 };
+
 export default CheckBox;

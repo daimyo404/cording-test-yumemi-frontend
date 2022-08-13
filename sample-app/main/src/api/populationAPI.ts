@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import { resasUrl as url } from "../const";
 
-const populationAPI = async (prefCode: any) => {
+const populationApi = async (prefCode: number) => {
   
   type PerYear = {
     year: number,
@@ -34,7 +34,6 @@ const populationAPI = async (prefCode: any) => {
   
   const result = await axios(options)
     .then((res: AxiosResponse<ApiResponse>) => {
-      console.log(process.env.NEXT_PUBLIC_API_KEY)
       //NOTE: 総人口をレスポンス
       return res.data.result.data[0].data;
     }).catch((e: AxiosError) => {
@@ -44,4 +43,4 @@ const populationAPI = async (prefCode: any) => {
   return result;
 };
 
-export default populationAPI;
+export default populationApi;
